@@ -1,0 +1,69 @@
+﻿@model WeatherApp.Models.WeatherData
+@using WeatherApp.Models
+@using System.Collections.Generic
+
+@{
+    ViewBag.Title = "Index";
+    IEnumerable<CityName> CityList = ViewBag.CityList;
+    string error = ViewBag.Error;
+}
+
+<div>
+    <div>
+        @using (Html.BeginForm("Index", "Weather"))
+        {
+            <div class="weather-form">
+                <div class="weather-form-child">
+                    <div class="weather-main-text box">
+                        <div><h1>Weather in your city!</h1></div>
+                        <div class="weather-text"><h4>Reliable weather forecast for any point of the world</h4></div>
+                    </div>
+                </div>
+                <div class="weather-form-child">
+                    <div class="weather-element">
+                        <h4>Input city:</h4>
+                        <input list="cities" name="cityName" required placeholder="City" class="form-control" />
+                        <datalist id="cities">
+                            @foreach (var city in CityList)
+                            {
+                                <option>@city.Name</option>
+                            }
+                        </datalist>
+                    </div>
+                    <div class="weather-element">
+                        <h4>Select period:</h4>
+                        <select name="countDays" class="form-control">
+                            <option value="1">1</option>
+                            <option value="3">3</option>
+                            <option value="7">7</option>
+                        </select>
+                    </div>
+                    <div class="weather-element">
+                        <h4>Get forecast:</h4>
+                        <input type="submit" value="OK" class="btn weather-ok-btn" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div>
+        @if (error == "")
+        {
+            if (Model != null)
+            {
+                <h3>@Model.City.Name, @Model.City.CountryCode</h3>
+                @TableHelpers.MapTableOfWeather(Model)
+            }
+        }
+        else
+        {
+            <div  class="weather-error-result"><h3>@error</h3></div>
+        }
+    </div>
+</div>
+
+
+
+
+
+

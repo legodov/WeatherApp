@@ -1,0 +1,89 @@
+﻿@using WeatherApp.Models
+@using System.Collections.Generic
+
+@{
+    ViewBag.Title = "Configurations";
+    IEnumerable<CityName> CityList = ViewBag.CityList;
+    string error = ViewBag.Error;
+}
+
+<div>
+    <div class="weather-form">
+        <div class="weather-form-child">
+            <div class="weather-main-text box">
+                <div><h1>Configure this weather service</h1></div>
+                <div class="weather-text"><h4>Here you can customize the weather service for yourself</h4></div>
+            </div>
+        </div>
+        @using (Html.BeginForm("Configurations", "Weather", FormMethod.Post))
+        {
+            <div class="weather-form-child">
+                <div class="weather-element">
+                    <h4>Input city:</h4>
+                    <input list="cities" name="cityName" required placeholder="City" class="form-control" />
+                </div>
+                <div class="weather-element">
+                    <h4>Add city:</h4>
+                    <input type="submit" name="configAction" value="Add" class="btn weather-add-btn" />
+                </div>
+            </div>
+        }
+        <div class="weather-form-child">
+            <ul class="list-group city-list">
+                @foreach (var city in CityList)
+                {
+                    using (Html.BeginForm(new { configAction = "Delete", cityName = city.Name }))
+                    {
+                        <li class="list-group-item">
+                            <div class="delete-city-form">
+                                <div class="delete-city-form-child"><h4>@city.Name</h4></div>
+                                <div class="delete-city-form-child">
+                                    <input type="submit" value="Delete" class="weather-delete-btn">
+                                </div>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div>
+            @if (error != "")
+            {
+                <div class="weather-error-result"><h3>@error</h3></div>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

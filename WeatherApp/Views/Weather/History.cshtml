@@ -1,0 +1,25 @@
+﻿@using WeatherApp.Models
+@using System.Collections.Generic
+
+@{
+    ViewBag.Title = "History";
+    IEnumerable<HistoryWeatherDataObject> History = ViewBag.History;
+    string error = ViewBag.Error;
+}
+
+<div>
+    @if (error == "")
+    {
+        if (History != null)
+        {
+            <div id="history">@TableHelpers.MapWeatherHistory(History)</div>
+        }
+    }
+    else
+    {
+        <div class="weather-error-result"><h3>@error</h3></div>
+    }
+</div>
+
+
+

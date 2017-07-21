@@ -1,0 +1,75 @@
+﻿@helper MapTableOfWeather(WeatherApp.Models.WeatherData weatherData)
+{
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th class="text-center">Time</th>
+            <th class="text-center">Morning, °C</th>
+            <th class="text-center">Day, °C</th>
+            <th class="text-center">Evening, °C</th>
+            <th class="text-center">Night, °C</th>
+            <th class="text-center">Rain</th>
+            <th class="text-center">Pressure, hpa</th>
+            <th class="text-center">Humidity, %</th>
+            <th class="text-center">Wind speed, m/s</th>
+            <th class="text-center">Wind direction, °</th>
+            <th class="text-center">Cloudiness, %</th>
+        </tr>
+        @foreach (var forecastPerDay in weatherData.Forecast)
+        {
+            <tr>
+                <th class="text-center">@WeatherApp.Services.Converters.TimeConverter.ConvertFromEpochToHuman(forecastPerDay.Time).ToShortDateString()</th>
+                <th class="text-center">@forecastPerDay.Temperatures.Morning</th>
+                <th class="text-center">@forecastPerDay.Temperatures.Day</th>
+                <th class="text-center">@forecastPerDay.Temperatures.Evening</th>
+                <th class="text-center">@forecastPerDay.Temperatures.Night</th>
+                <th class="text-center">@forecastPerDay.AdditinalForecastInfo[0].Description</th>
+                <th class="text-center">@forecastPerDay.Pressure</th>
+                <th class="text-center">@forecastPerDay.Humidity</th>
+                <th class="text-center">@forecastPerDay.WindSpeed</th>
+                <th class="text-center">@forecastPerDay.WindDirection</th>
+                <th class="text-center">@forecastPerDay.Clouds</th>
+            </tr>
+        }
+    </table>
+}
+
+@helper MapWeatherHistory(IEnumerable<WeatherApp.Models.HistoryWeatherDataObject> history)
+{
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th class="text-center">Request time</th>
+            <th class="text-center">City</th>
+            <th class="text-center">Count days</th>
+            <th class="text-center">Time</th>
+            <th class="text-center">Morning, °C</th>
+            <th class="text-center">Day, °C</th>
+            <th class="text-center">Evening, °C</th>
+            <th class="text-center">Night, °C</th>
+            <th class="text-center">Rain</th>
+            <th class="text-center">Pressure, hpa</th>
+            <th class="text-center">Humidity, %</th>
+            <th class="text-center">Wind speed, m/s</th>
+            <th class="text-center">Wind direction, °</th>
+            <th class="text-center">Cloudiness, %</th>
+        </tr>
+        @foreach (var historyObject in history)
+        {
+            <tr>
+                <th class="text-center">@historyObject.RequestTime</th>
+                <th class="text-center">@historyObject.City</th>
+                <th class="text-center">@historyObject.CountDays</th>
+                <th class="text-center">@WeatherApp.Services.Converters.TimeConverter.ConvertFromEpochToHuman(historyObject.ReducedForecastPerDay.Time).ToShortDateString()</th>
+                <th class="text-center">@historyObject.ReducedForecastPerDay.MorningTemp</th>
+                <th class="text-center">@historyObject.ReducedForecastPerDay.DayTemp</th>
+                <th class="text-center">@historyObject.ReducedForecastPerDay.EveningTemp</th>
+                <th class="text-center">@historyObject.ReducedForecastPerDay.NightTemp</th>
+                <th class="text-center">@historyObject.ReducedForecastPerDay.Rain</th>
+                <th class="text-center">@historyObject.ReducedForecastPerDay.Pressure</th>
+                <th class="text-center">@historyObject.ReducedForecastPerDay.Humidity</th>
+                <th class="text-center">@historyObject.ReducedForecastPerDay.WindSpeed</th>
+                <th class="text-center">@historyObject.ReducedForecastPerDay.WindDirection</th>
+                <th class="text-center">@historyObject.ReducedForecastPerDay.Clouds</th>
+            </tr>
+        }
+    </table>
+}
