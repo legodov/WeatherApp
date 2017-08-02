@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using WeatherApp.DAL.Repositories;
+using WeatherApp.DAL;
 using WeatherApp.Services;
 
 namespace WeatherApp.Util

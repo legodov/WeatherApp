@@ -1,5 +1,5 @@
 ﻿using System;
-using WeatherApp.DAL.Repositories;
+using WeatherApp.DAL;
 
 namespace WeatherApp.Tests.Fake
 {

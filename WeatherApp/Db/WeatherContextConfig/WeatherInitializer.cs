@@ -2,7 +2,7 @@
 using System.Data.Entity;
 using WeatherApp.Models;
 
-namespace WeatherApp.DAL.WeatherCotextConfig
+namespace WeatherApp.Db.WeatherCotextConfig
 {
     public class WeatherInitializer : CreateDatabaseIfNotExists<WeatherContext>
     {

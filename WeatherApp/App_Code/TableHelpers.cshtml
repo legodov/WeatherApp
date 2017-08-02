@@ -17,7 +17,7 @@
         @foreach (var forecastPerDay in weatherData.Forecast)
         {
             <tr>
-                <th class="text-center">@WeatherApp.Services.Converters.TimeConverter.ConvertFromEpochToHuman(forecastPerDay.Time).ToShortDateString()</th>
+                <th class="text-center">@WeatherApp.Converters.TimeConverter.ConvertFromEpochToHuman(forecastPerDay.Time).ToShortDateString()</th>
                 <th class="text-center">@forecastPerDay.Temperatures.Morning</th>
                 <th class="text-center">@forecastPerDay.Temperatures.Day</th>
                 <th class="text-center">@forecastPerDay.Temperatures.Evening</th>
@@ -58,7 +58,7 @@
                 <th class="text-center">@historyObject.RequestTime</th>
                 <th class="text-center">@historyObject.City</th>
                 <th class="text-center">@historyObject.CountDays</th>
-                <th class="text-center">@WeatherApp.Services.Converters.TimeConverter.ConvertFromEpochToHuman(historyObject.ReducedForecastPerDay.Time).ToShortDateString()</th>
+                <th class="text-center">@WeatherApp.Converters.TimeConverter.ConvertFromEpochToHuman(historyObject.ReducedForecastPerDay.Time).ToShortDateString()</th>
                 <th class="text-center">@historyObject.ReducedForecastPerDay.MorningTemp</th>
                 <th class="text-center">@historyObject.ReducedForecastPerDay.DayTemp</th>
                 <th class="text-center">@historyObject.ReducedForecastPerDay.EveningTemp</th>

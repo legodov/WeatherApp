@@ -126,6 +126,10 @@
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -134,6 +138,10 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -203,16 +211,18 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\WeatherController.cs" />
-    <Compile Include="DAL\Repositories\IRepository.cs" />
-    <Compile Include="DAL\Repositories\IUnitOfWork.cs" />
-    <Compile Include="DAL\Repositories\IUnitOfWorkFactory.cs" />
-    <Compile Include="DAL\Repositories\Repository.cs" />
-    <Compile Include="DAL\Repositories\SqlUnitOfWorkFactory.cs" />
-    <Compile Include="DAL\Repositories\UnitOfWork.cs" />
-    <Compile Include="DAL\WeatherContext.cs" />
-    <Compile Include="DAL\WeatherCotextConfig\CityNameConfig.cs" />
-    <Compile Include="DAL\WeatherCotextConfig\HistoryWeatherDataObjectConfig.cs" />
-    <Compile Include="DAL\WeatherCotextConfig\WeatherInitializer.cs" />
+    <Compile Include="Converters\TimeConverter.cs" />
+    <Compile Include="Converters\WeatherDataConverter.cs" />
+    <Compile Include="DAL\IRepository.cs" />
+    <Compile Include="DAL\IUnitOfWork.cs" />
+    <Compile Include="DAL\IUnitOfWorkFactory.cs" />
+    <Compile Include="DAL\Repository.cs" />
+    <Compile Include="DAL\SqlUnitOfWorkFactory.cs" />
+    <Compile Include="DAL\UnitOfWork.cs" />
+    <Compile Include="Db\WeatherContext.cs" />
+    <Compile Include="Db\WeatherContextConfig\CityNameConfig.cs" />
+    <Compile Include="Db\WeatherContextConfig\HistoryWeatherDataObjectConfig.cs" />
+    <Compile Include="Db\WeatherContextConfig\WeatherInitializer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -227,8 +237,6 @@
     <Compile Include="Models\Temperatures.cs" />
     <Compile Include="Models\WeatherData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Converters\TimeConverter.cs" />
-    <Compile Include="Services\Converters\WeatherDataConverter.cs" />
     <Compile Include="Services\IWeatherService.cs" />
     <Compile Include="Services\WeatherError.cs" />
     <Compile Include="Services\WeatherException.cs" />
@@ -245,8 +253,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\blue_background.jpg" />
-    <Content Include="Images\sky_background.jpg" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -260,7 +266,6 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="App_Code\TableHelpers.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
-    <Content Include="Images\sunset.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />

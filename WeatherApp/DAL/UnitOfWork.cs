@@ -1,7 +1,8 @@
 ﻿using System.Data.Entity;
+using System.Threading.Tasks;
 using WeatherApp.Models;
 
-namespace WeatherApp.DAL.Repositories
+namespace WeatherApp.DAL
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -19,6 +20,10 @@ namespace WeatherApp.DAL.Repositories
         public void SaveChanges()
         {
             _dataContext.SaveChanges();
+        }
+        public async Task SaveChangesAsync()
+        {
+            await _dataContext.SaveChangesAsync();
         }
         public void Dispose()
         {

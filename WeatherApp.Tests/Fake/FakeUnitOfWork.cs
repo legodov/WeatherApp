@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using WeatherApp.DAL.Repositories;
+using System.Threading.Tasks;
+using WeatherApp.DAL;
 using WeatherApp.Models;
 
 namespace WeatherApp.Tests.Fake
@@ -27,6 +28,10 @@ namespace WeatherApp.Tests.Fake
         }
         public void SaveChanges()
         { }
+        public async Task SaveChangesAsync()
+        {
+            await Task.Delay(1000);
+        }
         public void Dispose()
         { }
     }

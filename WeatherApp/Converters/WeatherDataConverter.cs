@@ -1,6 +1,6 @@
 ﻿using WeatherApp.Models;
 
-namespace WeatherApp.Services.Converters
+namespace WeatherApp.Converters
 {
     public static class WeatherDataConverter
     {

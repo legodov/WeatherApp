@@ -1,4 +1,4 @@
-﻿namespace WeatherApp.DAL.Repositories
+﻿namespace WeatherApp.DAL
 {
     public interface IUnitOfWorkFactory
     {

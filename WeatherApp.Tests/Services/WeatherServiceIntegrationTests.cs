@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using WeatherApp.DAL.Repositories;
+using WeatherApp.DAL;
 using WeatherApp.Models;
 using FakeItEasy;
 using NUnit.Framework;
 using WeatherApp.Services;
-using WeatherApp.DAL;
+using WeatherApp.Db;
 
 namespace WeatherApp.Tests.Services
 {

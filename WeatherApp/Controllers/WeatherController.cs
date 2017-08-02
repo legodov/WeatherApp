@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using WeatherApp.Models;
 using WeatherApp.Services;
-using WeatherApp.Services.Converters;
+using WeatherApp.Converters;
 
 namespace WeatherApp.Controllers
 {
@@ -19,11 +19,11 @@ namespace WeatherApp.Controllers
 
         // GET: Weather/Index
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             try
             {
-                ViewBag.CityList = service.GetCityList();
+                ViewBag.CityList = await service.GetCityListAsync();
                 ViewBag.Error = "";
             }
             catch (Exception ex)
@@ -41,14 +41,14 @@ namespace WeatherApp.Controllers
             try
             {
                 WeatherData weatherData = await service.GetWeatherAsync(cityName, countDays);
-                service.AddHistoryObject(new HistoryWeatherDataObject
+                await service.AddHistoryObjectAsync(new HistoryWeatherDataObject
                 {
                     City = cityName,
                     CountDays = countDays,
                     RequestTime = DateTime.Now,
                     ReducedForecastPerDay = WeatherDataConverter.GetReducedForecastForFirstDay(weatherData)
                 });
-                ViewBag.CityList = service.GetCityList();
+                ViewBag.CityList = await service.GetCityListAsync();
                 ViewBag.Error = "";
                 return View(weatherData);
             }
@@ -62,11 +62,11 @@ namespace WeatherApp.Controllers
 
         // GET: Weather/History
         [HttpGet]
-        public ActionResult History()
+        public async Task<ActionResult> History()
         {
             try
             {
-                ViewBag.History = service.GetHistory();
+                ViewBag.History = await service.GetHistoryAsync();
                 ViewBag.Error = "";
             }
             catch (Exception ex)
@@ -78,11 +78,11 @@ namespace WeatherApp.Controllers
 
         // GET: Weather/Configurations
         [HttpGet]
-        public ActionResult Configurations()
+        public async Task<ActionResult> Configurations()
         {
             try
             {
-                ViewBag.CityList = service.GetCityList();
+                ViewBag.CityList = await service.GetCityListAsync();
                 ViewBag.Error = "";
             }
             catch (Exception ex)
@@ -95,15 +95,15 @@ namespace WeatherApp.Controllers
 
         // POST: Weather/Configurations
         [HttpPost]
-        public ActionResult Configurations(string configAction, string cityName)
+        public async Task<ActionResult> Configurations(string configAction, string cityName)
         {
             try
             {
                 if (configAction == "Add")
-                    service.AddCity(new CityName { Name = cityName });
+                    await service.AddCityAsync(new CityName { Name = cityName });
                 else if (configAction == "Delete")
-                    service.DeleteCitiesWithName(cityName);
-                ViewBag.CityList = service.GetCityList();
+                    await service.DeleteCitiesWithNameAsync(cityName);
+                ViewBag.CityList = await service.GetCityListAsync();
                 ViewBag.Error = "";
             }
             catch (Exception ex)

@@ -1,12 +1,14 @@
 ﻿using System.Web.Http;
 using WeatherApp.Models;
 using WeatherApp.Services;
-using System;
 using System.Net.Http;
 using System.Net;
+using System.Web.Http.Cors;
+using System.Threading.Tasks;
 
 namespace WeatherApp.Api
 {
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]    
     public class CitiesController : ApiController
     {
         private IWeatherService _service;
@@ -19,52 +21,52 @@ namespace WeatherApp.Api
         // GET: api/Cities/GetCityList
         [HttpGet]
         [Route("api/Cities/GetCityList")]
-        public HttpResponseMessage GetCityList()
+        public async Task<HttpResponseMessage> GetCityList()
         {
             try
             {
-                var cityList = _service.GetCityList();
+                var cityList = await _service.GetCityListAsync();
                 return Request.CreateResponse(HttpStatusCode.OK, cityList);
             }
-            catch (Exception ex)
+            catch 
             {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
             }
         }
 
         // POST: api/Cities/AddCity/cityName
         [HttpPost]
         [Route("api/Cities/AddCity/{cityName}")]
-        public HttpResponseMessage AddCity([FromUri]string cityName)
+        public async Task<HttpResponseMessage> AddCity([FromUri]string cityName)
         {
             if (cityName == null || cityName == "")
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             try
             {
-                _service.AddCity(new CityName { Name = cityName });
+                await _service.AddCityAsync(new CityName { Name = cityName });
                 return Request.CreateResponse(HttpStatusCode.Created);
             }
-            catch (Exception ex)
+            catch 
             {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
             }
         }
 
         // DELETE: api/Cities/DeleteCitiesWithName/cityName
         [HttpDelete]
         [Route("api/Cities/DeleteCitiesWithName/{cityName}")]
-        public HttpResponseMessage DeleteCitiesWithName([FromUri]string cityName)
+        public async Task<HttpResponseMessage> DeleteCitiesWithName([FromUri]string cityName)
         {
             if (cityName == null || cityName == "")
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             try
             {
-                _service.DeleteCitiesWithName(cityName);
+                await _service.DeleteCitiesWithNameAsync(cityName);
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
-            catch (Exception ex)
+            catch 
             {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
             }
         }
     }

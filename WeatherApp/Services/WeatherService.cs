@@ -1,13 +1,14 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using WeatherApp.Models;
+using System.Data.Entity;
 using System.Configuration;
-using WeatherApp.DAL.Repositories;
+using WeatherApp.DAL;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 namespace WeatherApp.Services
 {
@@ -73,12 +74,27 @@ namespace WeatherApp.Services
                 return unitOfWork.Repository<CityName>().All();
             }
         }
+        public async Task<IEnumerable<CityName>> GetCityListAsync()
+        {
+            using (var unitOfWork = _unitOfWorkFactory.Create())
+            {
+                return await unitOfWork.Repository<CityName>().AllAsync();
+            }
+        }
         public void AddCity(CityName city)
         {
             using (var unitOfWork = _unitOfWorkFactory.Create())
             {
                 unitOfWork.Repository<CityName>().Add(city);
                 unitOfWork.SaveChanges();
+            }
+        }
+        public async Task AddCityAsync(CityName city)
+        {
+            using (var unitOfWork = _unitOfWorkFactory.Create())
+            {
+                unitOfWork.Repository<CityName>().Add(city);
+                await unitOfWork.SaveChangesAsync();
             }
         }
         public void DeleteCitiesWithName(string cityName)
@@ -93,6 +109,18 @@ namespace WeatherApp.Services
                 unitOfWork.SaveChanges();
             }
         }
+        public async Task DeleteCitiesWithNameAsync(string cityName)
+        {
+            if (cityName == null) throw new ArgumentNullException();
+            using (var unitOfWork = _unitOfWorkFactory.Create())
+            {
+                var cityRepository = unitOfWork.Repository<CityName>();
+                var cities = await cityRepository.Query().Where(c => c.Name == cityName).ToListAsync();
+                foreach (var city in cities)
+                    cityRepository.Delete(city);
+                await unitOfWork.SaveChangesAsync();
+            }
+        }
 
         public IEnumerable<HistoryWeatherDataObject> GetHistory()
         {
@@ -101,12 +129,27 @@ namespace WeatherApp.Services
                 return unitOfWork.Repository<HistoryWeatherDataObject>().All();
             }
         }
+        public async Task<IEnumerable<HistoryWeatherDataObject>> GetHistoryAsync()
+        {
+            using (var unitOfWork = _unitOfWorkFactory.Create())
+            {
+                return await unitOfWork.Repository<HistoryWeatherDataObject>().AllAsync();
+            }
+        }
         public void AddHistoryObject(HistoryWeatherDataObject historyObject)
         {
             using (var unitOfWork = _unitOfWorkFactory.Create())
             {
                 unitOfWork.Repository<HistoryWeatherDataObject>().Add(historyObject);
                 unitOfWork.SaveChanges();
+            }
+        }
+        public async Task AddHistoryObjectAsync(HistoryWeatherDataObject historyObject)
+        {
+            using (var unitOfWork = _unitOfWorkFactory.Create())
+            {
+                unitOfWork.Repository<HistoryWeatherDataObject>().Add(historyObject);
+                await unitOfWork.SaveChangesAsync();
             }
         }
     }

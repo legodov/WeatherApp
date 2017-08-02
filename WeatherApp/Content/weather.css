@@ -1,10 +1,4 @@
-﻿body {
-    background-image: url(/Images/sky_background.jpg); 
-    background-position: 50% 30%; 
-    background-attachment: fixed;
-}
-
-.weather-footer {
+﻿.weather-footer {
     display: flex;
     justify-content: space-between;
 }

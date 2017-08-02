@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity.ModelConfiguration;
 using WeatherApp.Models;
 
-namespace WeatherApp.DAL.WeatherCotextConfig
+namespace WeatherApp.Db.WeatherCotextConfig
 {
     public class CityNameConfig : EntityTypeConfiguration<CityName>
     {

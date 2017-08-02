@@ -1,12 +1,13 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using WeatherApp.Services;
 
 namespace WeatherApp.Api
 {
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class WeatherController : ApiController
     {
         private IWeatherService _service;
@@ -16,10 +17,10 @@ namespace WeatherApp.Api
             _service = service;
         }
 
-        // GET: api/Weather/GetWeatherAsync/cityName/countDays
+        // GET: api/Weather/GetWeather/cityName/countDays
         [HttpGet]
-        [Route("api/Weather/GetWeatherAsync/{cityName}/{countDays}")]
-        public async Task<HttpResponseMessage> GetWeatherAsync(string cityName, int countDays = 7)
+        [Route("api/Weather/GetWeather/{cityName}/{countDays}")]
+        public async Task<HttpResponseMessage> GetWeather(string cityName, int countDays = 7)
         {
             try
             {
@@ -30,9 +31,9 @@ namespace WeatherApp.Api
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
             }
-            catch (Exception ex)
+            catch 
             {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
             }
         }
     }

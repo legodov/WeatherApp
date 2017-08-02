@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using WeatherApp.DAL.Repositories;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+using WeatherApp.DAL;
 using WeatherApp.Models;
 
 namespace WeatherApp.Tests.Fake
@@ -24,13 +26,28 @@ namespace WeatherApp.Tests.Fake
         {
             return Data;
         }
+        public async Task<IEnumerable<T>> AllAsync()
+        {
+            await Task.Delay(1000);
+            return Data;
+        }
         public T Get(int id)
         {
+            return Data.FirstOrDefault(x => x.Id == id);
+        }
+        public async Task<T> GetAsync(int id)
+        {
+            await Task.Delay(1000);
             return Data.FirstOrDefault(x => x.Id == id);
         }
         public T Get(Func<T, bool> predicate)
         {
             return Data.FirstOrDefault(predicate);
+        }
+        public async Task<T> GetAsync(Expression<Func<T, bool>> predicate)
+        {
+            await Task.Delay(1000);
+            return Data.FirstOrDefault();
         }
         public void Add(T entity)
         {

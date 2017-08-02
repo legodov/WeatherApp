@@ -1,8 +1,8 @@
 ﻿using System.Data.Entity;
-using WeatherApp.DAL.WeatherCotextConfig;
+using WeatherApp.Db.WeatherCotextConfig;
 using WeatherApp.Models;
 
-namespace WeatherApp.DAL
+namespace WeatherApp.Db
 {
     public class WeatherContext : DbContext
     {

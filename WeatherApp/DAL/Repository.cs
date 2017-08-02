@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 using WeatherApp.Models;
 
-namespace WeatherApp.DAL.Repositories
+namespace WeatherApp.DAL
 {
     public class Repository<T> : IRepository<T> where T : class, IEntity
     {
@@ -25,13 +27,25 @@ namespace WeatherApp.DAL.Repositories
         {
             return _dataSet.ToList();
         }
+        public async Task<IEnumerable<T>> AllAsync()
+        {
+            return await _dataSet.ToListAsync();
+        }
         public T Get(int id)
         {
             return _dataSet.FirstOrDefault(x => x.Id == id);
         }
+        public async Task<T> GetAsync(int id)
+        {
+            return await _dataSet.FirstOrDefaultAsync(x => x.Id == id);
+        }
         public T Get(Func<T, bool> predicate)
         {
             return _dataSet.FirstOrDefault(predicate);
+        }
+        public async Task<T> GetAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _dataSet.FirstOrDefaultAsync(predicate);
         }
         public void Add(T entity)
         {
@@ -48,6 +62,10 @@ namespace WeatherApp.DAL.Repositories
         public void SaveChanges()
         {
             _dataContext.SaveChanges();
+        }
+        public async Task SaveChangesAsync()
+        {
+            await _dataContext.SaveChangesAsync();
         }
     }
 }

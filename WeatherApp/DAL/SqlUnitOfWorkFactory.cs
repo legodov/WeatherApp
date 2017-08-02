@@ -1,5 +1,7 @@
-﻿namespace WeatherApp.DAL.Repositories
-{
+﻿using WeatherApp.Db;
+
+namespace WeatherApp.DAL
+{ 
     public class SqlUnitOfWorkFactory : IUnitOfWorkFactory
     {
         public IUnitOfWork Create()

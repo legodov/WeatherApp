@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using WeatherApp.DAL.Repositories;
+using WeatherApp.DAL;
 using WeatherApp.Models;
 using WeatherApp.Services;
 using WeatherApp.Tests.Fake;
